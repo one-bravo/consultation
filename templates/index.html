@@ -1,260 +1,776 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your New Flask App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Leading AI & Automation Solutions in Detroit and Toledo. Transform your business with custom AI consulting, process automation, and digital transformation services. Local experts serving Michigan and Ohio businesses.">
+    <meta name="keywords" content="AI consulting Detroit, automation services Toledo, business automation Michigan, AI solutions Ohio, digital transformation Detroit, process automation Toledo">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Ramalwit Services - Detroit & Toledo's Premier AI & Automation Solutions">
+    <meta property="og:description" content="Transform your Michigan or Ohio business with cutting-edge AI and automation solutions. Local experts in Detroit and Toledo providing custom technology solutions.">
+    <meta property="og:type" content="website">
+    <title>Ramalwit Services - Detroit & Toledo's Premier AI & Automation Solutions</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #3b82f6;
+            --text: #1f2937;
+            --light: #f8fafc;
+            --success: #059669;
+        }
 
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Almarai:wght@800&amp;family=Nunito+Sans&amp;display=swap" />
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            position: relative;
+            width: 200px;
+            height: 60px;
+        }
+        
+        .logo svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .hero {
+            padding: 10rem 0 6rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/a/a7/Detroit_Skyline_%28123143197%29.jpeg') center/cover;
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .cta-primary {
+            display: inline-block;
+            padding: 1.25rem 2.5rem;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .cta-secondary {
+            display: inline-block;
+            padding: 1.25rem 2.5rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .confidence-badges {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            padding: 3rem 0;
+            background: var(--light);
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .badge i {
+            color: var(--success);
+            font-size: 1.5rem;
+        }
+
+        .services {
+            padding: 8rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #64748b;
+            font-size: 1.25rem;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .service-card {
+            padding: 2.5rem;
+            border-radius: 1rem;
+            background: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .locations {
+            padding: 8rem 0;
+            background: var(--light);
+        }
+
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .location-card {
+            padding: 3rem;
+            background: white;
+            border-radius: 1rem;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .location-card h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .location-info {
+            margin-top: 2rem;
+        }
+
+        .location-info p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .location-info i {
+            color: var(--primary);
+        }
+
+        .contact {
+            padding: 8rem 0;
+            background: white;
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: var(--light);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+
+        .submit-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1.25rem 2rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .submit-button:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: var(--text);
+            color: white;
+            padding: 5rem 0 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .confidence-badges {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="content">
-      <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjY3IDE3NS4yIDE3Ni40IDE3Ni41IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDY3IDE3NS4yIDE3Ni40IDE3Ni41OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojRkZGRkZGO30NCjwvc3R5bGU+DQo8ZyBpZD0iWE1MSURfMjI5XyI+DQoJPGcgaWQ9IlhNTElEXzY5MF8iPg0KCQk8ZyBpZD0iWE1MSURfNjkxXyI+DQoJCQk8Zz4NCgkJCQk8ZyBpZD0iWE1MSURfNDRfIj4NCgkJCQkJPGcgaWQ9IlhNTElEXzQ4XyI+DQoJCQkJCQk8cGF0aCBpZD0iWE1MSURfNDlfIiBjbGFzcz0ic3QwIiBkPSJNMTU1LjIsMzUxLjd2LTM0LjJjMzYuMiwwLDY0LjMtMzUuOSw1MC40LTc0Yy01LjEtMTQuMS0xNi40LTI1LjQtMzAuNS0zMC41DQoJCQkJCQkJYy0zOC4xLTEzLjgtNzQsMTQuMi03NCw1MC40bDAsMEg2N2MwLTU3LjcsNTUuOC0xMDIuNywxMTYuMy04My44YzI2LjQsOC4zLDQ3LjUsMjkuMyw1NS43LDU1LjcNCgkJCQkJCQlDMjU3LjksMjk1LjksMjEzLDM1MS43LDE1NS4yLDM1MS43eiIvPg0KCQkJCQk8L2c+DQoJCQkJCTxwb2x5Z29uIGlkPSJYTUxJRF80N18iIGNsYXNzPSJzdDAiIHBvaW50cz0iMTU1LjMsMzE3LjYgMTIxLjMsMzE3LjYgMTIxLjMsMjgzLjYgMTIxLjMsMjgzLjYgMTU1LjMsMjgzLjYgMTU1LjMsMjgzLjYgCQkJCQkNCgkJCQkJCSIvPg0KCQkJCQk8cG9seWdvbiBpZD0iWE1MSURfNDZfIiBjbGFzcz0ic3QwIiBwb2ludHM9IjEyMS4zLDM0My44IDk1LjEsMzQzLjggOTUuMSwzNDMuOCA5NS4xLDMxNy42IDEyMS4zLDMxNy42IAkJCQkJIi8+DQoJCQkJCTxwYXRoIGlkPSJYTUxJRF80NV8iIGNsYXNzPSJzdDAiIGQ9Ik05NS4xLDMxNy42SDczLjJsMCwwdi0yMS45bDAsMGgyMS45bDAsMFYzMTcuNnoiLz4NCgkJCQk8L2c+DQoJCQk8L2c+DQoJCTwvZz4NCgk8L2c+DQo8L2c+DQo8L3N2Zz4NCg==" alt="DigitalOcean Logo" width="100" />
-      <h1>Welcome to your new <a href="https://flask.palletsprojects.com/en/1.1.x/">Flask App</a>!</h1>
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+                    <!-- Background circuit pattern -->
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#2563eb"/>
+                            <stop offset="100%" style="stop-color:#1e40af"/>
+                        </linearGradient>
+                        <!-- Circuit pattern for the background -->
+                        <pattern id="circuitPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <path d="M5,10 h5 M15,10 h5 M10,5 v5 M10,15 v5" 
+                                  stroke="#3b82f6" 
+                                  stroke-width="0.5" 
+                                  fill="none" 
+                                  opacity="0.3"/>
+                        </pattern>
+                    </defs>
+                    
+                    <!-- Main shape with circuit background -->
+                    <rect x="0" y="0" width="200" height="60" fill="url(#circuitPattern)" opacity="0.1"/>
+                    
+                    <!-- Main icon group -->
+                    <g transform="translate(10, 5)">
+                        <!-- Hexagonal border representing technology/innovation -->
+                        <path d="M25,10 L40,0 L55,10 L55,30 L40,40 L25,30 Z" 
+                              fill="none" 
+                              stroke="url(#logoGradient)" 
+                              stroke-width="2"/>
+                        
+                        <!-- Central node representing AI -->
+                        <circle cx="40" cy="20" r="8" 
+                                fill="url(#logoGradient)"/>
+                        
+                        <!-- Connected nodes representing automation/network -->
+                        <circle cx="25" cy="15" r="3" fill="#3b82f6"/>
+                        <circle cx="25" cy="25" r="3" fill="#3b82f6"/>
+                        <circle cx="55" cy="15" r="3" fill="#3b82f6"/>
+                        <circle cx="55" cy="25" r="3" fill="#3b82f6"/>
+                        
+                        <!-- Connection lines -->
+                        <path d="M28,15 L37,20 M28,25 L37,20 M43,20 L52,15 M43,20 L52,25" 
+                              stroke="#3b82f6" 
+                              stroke-width="1.5"/>
+                    </g>
+                    
+                    <!-- Company name -->
+                    <text x="75" y="28" 
+                          font-family="Arial, sans-serif" 
+                          font-size="16" 
+                          font-weight="bold" 
+                          fill="#1f2937">
+                        Ramalwit
+                    </text>
+                    
+                    <!-- Tagline -->
+                    <text x="75" y="45" 
+                          font-family="Arial, sans-serif" 
+                          font-size="12" 
+                          fill="#64748b">
+                        AI & Automation
+                    </text>
+                </svg>
+            </div>
+            <div class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#locations">Locations</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
 
-      <p>
-        This application is an example of how to deploy a Flask Application to DigitalOcean's App
-        Platform. Check out their <a href="https://flask.palletsprojects.com/en/1.1.x/quickstart/">documentation</a> to
-        learn more about flask.
-      </p>
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Detroit & Toledo's Premier<br>AI & Automation Experts</h1>
+            <p>Transform your Michigan or Ohio business with cutting-edge technology solutions. Local expertise, proven results.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-primary">Schedule a Free Consultation</a>
+                <a href="#services" class="cta-secondary">Explore Our Services</a>
+            </div>
+        </div>
+    </section>
 
+    <div class="confidence-badges">
+        <div class="badge">
+            <i class="fas fa-check-circle"></i>
+            <span>100+ Local Businesses Served</span>
+        </div>
+        <div class="badge">
+            <i class="fas fa-star"></i>
+            <span>5-Star Rated on Google</span>
+        </div>
+        <div class="badge">
+            <i class="fas fa-award"></i>
+            <span>Top Tech Provider 2024</span>
+        </div>
+        <div class="badge">
+            <i class="fas fa-clock"></i>
+            <span>Same-Day Response</span>
+        </div>
     </div>
 
-    <div class="links">
-      <a href="https://github.com/MasonEgger/python-slackbot-sampleapp" target="_blank"
-        rel="noopener noreferrer"><strong>Sample Slackbot using Flask</strong>
-        <span>Learn how to build a Slackbot in Python</span>
-      </a>
-      <a href="https://www.digitalocean.com/docs/app-platform/languages-frameworks/python/" target="_blank"
-        rel="noopener noreferrer"><strong>DigitalOcean App Platform Docs for Flask</strong>
-        <span>DigitalOcean's reference documentation for Flask</span>
-      </a>
-      <a href="https://www.digitalocean.com/docs/app-platform/" target="_blank" rel="noopener noreferrer"><strong>App
-          Platform Documentation</strong><span>Learn about DigitalOcean's App Platform</span></a>
-      <a href="https://www.digitalocean.com/docs/droplets/how-to/" target="_blank" rel="noopener noreferrer"><strong>App
-          Platform API Documentation</strong>
-        <span>REST API Documentation for App Platform</span>
-      </a>
-    </div>
-  </div>
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive AI and automation solutions tailored for businesses in Detroit, Toledo, and surrounding areas.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>AI Consultation</h3>
+                    <p>Expert guidance on implementing AI solutions for Michigan and Ohio businesses. We help you understand the possibilities and choose the right path forward.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Process Automation</h3>
+                    <p>Streamline your operations with custom automation solutions designed for the unique needs of Detroit and Toledo businesses.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Implementation & Deployment</h3>
+                    <p>Full-service implementation with local support. We handle everything from initial setup to testing and deployment.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Training & Support</h3>
+                    <p>On-site training at your Detroit or Toledo location and ongoing support to ensure smooth adoption of new technologies.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-digital-tachograph"></i>
+                    <h3>Digital Transformation</h3>
+                    <p>Strategic guidance and implementation support for complete digital transformation initiatives tailored to Midwest business needs.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-code-branch"></i>
+                    <h3>Custom Solutions</h3>
+                    <p>Tailored AI and automation solutions designed specifically for your local business challenges and goals.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="#contact" class="cta-primary">Get Your Free Consultation</a>
+            </div>
+        </div>
+    </section>
 
-  <div id="stripes">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+    <section id="locations" class="locations">
+        <div class="container">
+            <h2 class="section-title">Our Locations</h2>
+            <p class="section-subtitle">Strategic locations in Detroit and Toledo to better serve the Great Lakes region</p>
+            <div class="locations-grid">
+                <div class="location-card">
+                    <h3>Detroit Office</h3>
+                    <p>Serving Southeast Michigan's growing technology needs with innovative solutions.</p>
+                    <div class="location-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Downtown Detroit Tech District</p>
+                        <p><i class="fas fa-phone"></i> (313) 555-0123</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 8am - 6pm</p>
+                        <p><i class="fas fa-car"></i> Serving Greater Detroit Area</p>
+                    </div>
+                </div>
+                <div class="location-card">
+                    <h3>Toledo Office</h3>
+                    <p>Supporting Northwest Ohio businesses with local expertise and support.</p>
+                    <div class="location-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Toledo Business Center</p>
+                        <p><i class="fas fa-phone"></i> (419) 555-0123</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 8am - 6pm</p>
+                        <p><i class="fas fa-car"></i> Serving Greater Toledo Area</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Start Your Digital Transformation</h2>
+            <p class="section-subtitle">Schedule your free consultation with our local Detroit or Toledo team</p>
+            <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Business Email</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your business email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="company">Company Name</label>
+                    <input type="text" id="company" name="company" required placeholder="Enter your company name">
+                </div>
+                <div class="form-group">
+                    <label for="location">Preferred Location</label>
+                    <select id="location" name="location" required>
+                        <option value="">Select office location</option>
+                        <option value="detroit">Detroit Office</option>
+                        <option value="toledo">Toledo Office</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">How Can We Help?</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Tell us about your business needs"></textarea>
+                </div>
+                <button type="submit" class="submit-button">Schedule Free Consultation</button>
+                <div id="formMessage" class="form-message"></div>
+            </form>
+            
+            <script>
+            async function handleSubmit(event) {
+                event.preventDefault();
+                const form = event.target;
+                const submitButton = form.querySelector('button[type="submit"]');
+                const formMessage = document.getElementById('formMessage');
+                
+                // Disable submit button and show loading state
+                submitButton.disabled = true;
+                submitButton.innerHTML = 'Sending...';
+                
+                try {
+                    const formData = {
+                        name: form.name.value,
+                        email: form.email.value,
+                        phone: form.phone.value,
+                        company: form.company.value,
+                        location: form.location.value,
+                        message: form.message.value
+                    };
+                    
+                    const response = await fetch('http://localhost:5000/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        // Success message
+                        formMessage.innerHTML = '<div style="color: var(--success); margin-top: 1rem;">Thank you! We\'ll be in touch shortly.</div>';
+                        form.reset();
+                    } else {
+                        // Error message
+                        formMessage.innerHTML = `<div style="color: #dc2626; margin-top: 1rem;">Error: ${data.error}</div>`;
+                    }
+                } catch (error) {
+                    formMessage.innerHTML = '<div style="color: #dc2626; margin-top: 1rem;">Sorry, something went wrong. Please try again later.</div>';
+                } finally {
+                    // Reset button state
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Schedule Free Consultation';
+                }
+            }
+            </script>
+        </div>
+    </section>
 
-    body {
-      margin: 0;
-      padding: 50px;
-      min-height: 100vh;
-      position: relative;
-      color: #fff;
-      font-family: "Nunito Sans", sans-serif;
-      font-size: 19px;
-    }
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Detroit Office</h4>
+                    <ul>
+                        <li>Downtown Detroit Tech District</li>
+                        <li>Detroit, MI 48226</li>
+                        <li>(313) 555-0123</li>
+                        <li>detroit@ramalwit.com</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Toledo Office</h4>
+                    <ul>
+                        <li>Toledo Business Center</li>
+                        <li>Toledo, OH 43604</li>
+                        <li>(419) 555-0123</li>
+                        <li>toledo@ramalwit.com</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#locations">Locations</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#ai-consultation">AI Consultation</a></li>
+                        <li><a href="#process-automation">Process Automation</a></li>
+                        <li><a href="#implementation">Implementation</a></li>
+                        <li><a href="#training">Training & Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Ramalwit Services. All rights reserved. Serving Detroit, MI and Toledo, OH</p>
+            </div>
+        </div>
+    </footer>
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-family: "Almarai", sans-serif;
-    }
+    <script>
+        // Initialize GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
 
-    :root {
-      --background: linear-gradient(150deg,
-          #17acff 15%,
-          #016aff 70%,
-          #68a6ff 94%);
-      --first: #53f;
-      --second: #4553ff;
-      --third: #4f40ff;
-      --fourth: #25ddf5;
-      --fifth: #1fa2ff;
-    }
+        // Animate service cards on scroll
+        gsap.utils.toArray('.service-card').forEach(card => {
+            gsap.from(card, {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top bottom-=100',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+        });
 
-    #stripes {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100vw;
-      display: grid;
-      background: var(--background);
-      grid-template-columns: repeat(6, 1fr);
-      grid-template-rows: repeat(4, 1fr);
-      transform: skewY(-12deg);
-      transform-origin: 0;
-    }
+        // Animate confidence badges
+        gsap.utils.toArray('.badge').forEach((badge, index) => {
+            gsap.from(badge, {
+                opacity: 0,
+                x: index % 2 === 0 ? -50 : 50,
+                duration: 1,
+                delay: index * 0.2,
+                scrollTrigger: {
+                    trigger: '.confidence-badges',
+                    start: 'top bottom-=100',
+                }
+            });
+        });
 
-    #stripes span {
-      /* border: 1px solid #c00c00; */
-    }
-
-    #stripes span:first-child {
-      grid-column: span 1;
-      background: var(--first);
-    }
-
-    #stripes span:nth-child(2) {
-      grid-column: span 2;
-      background: var(--second);
-    }
-
-    #stripes span:nth-child(3) {
-      grid-column: span 2;
-      background: var(--third);
-    }
-
-    #stripes span:nth-child(4) {
-      grid-column: 6;
-      grid-row: 3;
-      background: var(--fourth);
-    }
-
-    #stripes span:nth-child(5) {
-      grid-column: span 2;
-      grid-row: 4;
-      background: var(--fifth);
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 50px 0;
-    }
-
-    .content {
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    h1 a {
-      color: #dbf1f5;
-    }
-
-    h1 a:hover {
-      color: #7decff;
-    }
-
-    p {
-      margin-bottom: 50px;
-    }
-     p a {
-      color:chartreuse;
-    }
-    
-    li {
-      text-align: left
-    }
-
-    code {
-      display: inline-block;
-      padding: 3px 6px;
-      margin-left: 3px;
-      margin-right: 3px;
-      border-radius: 5px;
-      font-size: 0.8rem;
-      background: #1a2279;
-      color: #dbf1f5;
-    }
-
-    .links {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .links a {
-      position: relative;
-      display: block;
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 5px;
-      padding: 20px;
-      font-size: 1.1rem;
-      text-decoration: none;
-      color: #222;
-      transition: 0.3s ease all;
-      overflow: hidden;
-    }
-
-    .links a:before,
-    .links a:after {
-      font-size: 40px;
-      display: block;
-      position: absolute;
-    }
-
-    .links a:before {
-      content: "";
-      top: -80%;
-      right: -150px;
-      width: 250px;
-      height: 250px;
-      background: rgba(125, 236, 255, 0.6);
-      pointer-events: none;
-      transform: rotate(-25deg);
-      transition: 0.4s cubic-bezier(0.34, 0.31, 0, 1.81) transform;
-    }
-
-    .links a:after {
-      content: "👉";
-      top: 0;
-      bottom: 0;
-      display: flex;
-      align-items: center;
-      right: 30px;
-      transform: translateX(80px);
-      transition: 0.3s cubic-bezier(0.34, 0.31, 0, 1.81) transform;
-    }
-
-    .links a:hover {
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.5);
-    }
-
-    .links a:hover:before {
-      transform: rotate(-25deg) translateX(60px);
-    }
-
-    .links a:hover:after {
-      transform: none;
-    }
-
-    .links a strong,
-    .links a span {
-      position: relative;
-      z-index: 1;
-    }
-
-    .links a strong {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    .links a span {
-      color: #787878;
-      font-size: 0.9rem;
-    }
-  </style>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
-
 </html>
